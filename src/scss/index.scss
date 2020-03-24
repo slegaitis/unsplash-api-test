@@ -1,0 +1,48 @@
+// fonts
+$headerFont: 'Baloo Bhai 2', cursive;
+$font: 'Lato', sans-serif;
+
+// Colors
+$dark: #353a57;
+$primary: #72a1e5;
+$secondary: #6b73a3;
+$warn: #ecce8e;
+$error: #bc424c;
+$white: #ffffff;
+$snow: #fcfaf9;
+
+// Sizes
+$zero: 0;
+$xxs: 8px;
+$xs: 16px;
+$s: 24px;
+$m: 32px;
+$l: 40px;
+$xl: 48px;
+$xxl: 56px;
+
+// Breakpoints
+$breakpoints: (
+	'phone': (
+		min-width: 300px,
+	),
+	'tablet': (
+		min-width: 767px,
+	),
+	'desktop': (
+		min-width: 1200px,
+	),
+) !default;
+
+$wrapper: 1200px;
+
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@import '_normalize.scss';
+@import './functions/functions.scss';
+@import './base';
+@import './components/header.scss';
+@import './components/imageListItem.scss';

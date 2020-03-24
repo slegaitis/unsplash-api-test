@@ -1,0 +1,110 @@
+*:focus {
+	outline: none;
+}
+
+body {
+	background: $snow;
+	color: $dark;
+	font-family: $font;
+	line-height: 1.4em;
+	margin: 0;
+	position: relative;
+	outline: none;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	@include font-size(16px);
+}
+
+h1 {
+	@include font-size(24px);
+	line-height: 1.4em;
+
+	@include respond-to('tablet') {
+		@include font-size(28px);
+	}
+
+	@include respond-to('desktop') {
+		@include font-size(32px);
+	}
+}
+
+h2 {
+	@include font-size(22px);
+	line-height: 1.4em;
+
+	@include respond-to('tablet') {
+		@include font-size(26px);
+	}
+
+	@include respond-to('large') {
+		@include font-size(30px);
+	}
+}
+
+h3 {
+	@include font-size(20px);
+	line-height: 1.4em;
+
+	@include respond-to('tablet') {
+		@include font-size(24px);
+	}
+
+	@include respond-to('desktop') {
+		@include font-size(28px);
+	}
+}
+
+h4,
+h5,
+h6 {
+	@include font-size(18px);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: $dark;
+	font-family: $headerFont;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	margin-bottom: $m;
+}
+
+p,
+a,
+li {
+	font-family: $font;
+	font-weight: 400;
+	letter-spacing: 0.06em;
+}
+
+p {
+	margin-bottom: $s;
+}
+
+button {
+	background: none;
+	border: 0;
+	outline: none;
+	letter-spacing: 0.05em;
+}
+
+footer {
+	background: $dark;
+	margin: 50px 0 0;
+	padding: 200px 15px 50px;
+	text-align: center;
+
+	h6 {
+		color: $snow;
+	}
+}
+
+.wrapper {
+	margin: 0 auto;
+	max-width: 1400px;
+}
