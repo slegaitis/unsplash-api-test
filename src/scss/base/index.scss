@@ -2,6 +2,19 @@
 	outline: none;
 }
 
+html {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+	-webkit-box-sizing: inherit;
+	-moz-box-sizing: inherit;
+	box-sizing: inherit;
+}
+
 body {
 	background: $snow;
 	color: $dark;
@@ -87,10 +100,14 @@ p {
 }
 
 button {
+	border: 1px solid $white;
+	border-radius: $s;
 	background: none;
-	border: 0;
+	cursor: pointer;
 	outline: none;
+	padding: $xs $s;
 	letter-spacing: 0.05em;
+	@include transition(background 0.2s ease);
 }
 
 footer {
@@ -107,4 +124,23 @@ footer {
 .wrapper {
 	margin: 0 auto;
 	max-width: 1400px;
+}
+
+.loading {
+	align-items: center;
+	background: rgba($snow, 0.4);
+	bottom: 0;
+	display: flex;
+	left: 0;
+	justify-content: center;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 5;
+
+	img {
+		border-radius: 50%;
+		height: 200px;
+		width: 200px;
+	}
 }

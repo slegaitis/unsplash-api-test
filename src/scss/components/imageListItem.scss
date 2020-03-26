@@ -1,35 +1,118 @@
 .image-list {
-	-webkit-column-count: 1;
-	-webkit-column-gap: 0px;
-	-moz-column-count: 1;
-	-moz-column-gap: 0px;
-	column-count: 1;
-	column-gap: 0px;
-	line-height: 0;
-	margin: 0 auto;
-	max-width: 1400px;
-	padding: 15px 0;
-
-	@include respond-to('tablet') {
-		-moz-column-count: 3;
-		-webkit-column-count: 3;
-		column-count: 3;
-	}
-
-	@include respond-to('desktop') {
-		-moz-column-count: 4;
-		-webkit-column-count: 4;
-		column-count: 4;
-	}
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	margin: $zero;
+	padding: $zero;
 
 	li {
-		margin: 0;
-		padding: 15px;
+		display: block;
+		height: 250px;
 		list-style: none;
+		margin: $zero;
+		max-width: 300px;
+		padding: $xxs;
+		position: relative;
+		overflow: hidden;
+		width: 100%;
+
+		@include respond-to('tablet') {
+			height: 300px;
+			max-width: calc(100% / 3);
+		}
+
+		@include respond-to('desktop') {
+			max-width: calc(100% / 4);
+		}
+
+		&:hover {
+			.content {
+				opacity: 1;
+			}
+		}
+
+		.content {
+			align-items: center;
+			background: rgba($dark, 0.6);
+			border-radius: 4px;
+			bottom: $xxs;
+			display: flex;
+			flex-direction: column;
+			height: calc(100% - ($xxs * 2));
+			left: $xxs;
+			opacity: $zero;
+			padding: $zero $xs;
+			position: absolute;
+			justify-content: center;
+			right: $xxs;
+			top: $xxs;
+			@include transition(opacity 0.2s ease);
+
+			h4 {
+				color: $white;
+				font-weight: 900;
+				margin: $zero;
+				text-align: center;
+				text-transform: capitalize;
+			}
+
+			.br {
+				background: $white;
+				display: block;
+				height: 2px;
+				margin: $xxs $zero;
+				width: 100px;
+			}
+
+			h6 {
+				color: $white;
+				margin: $zero;
+			}
+
+			.actions {
+				margin-top: $xs;
+
+				button {
+					color: $white;
+					margin: 0 $xs;
+
+					&:hover {
+						background: $white;
+						color: $dark;
+					}
+				}
+			}
+		}
+
 		img {
-			height: auto !important;
-			max-width: 100% !important;
+			background: $snow;
+			border-radius: 4px;
+			display: block;
+			height: 100%;
+			max-width: 100%;
+			object-fit: cover;
+			object-position: center;
 			width: 100%;
+
+			@keyframes loaded {
+				0% {
+					opacity: 0.1;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+
+			// I use utilitary classes instead of props to avoid style regenerating
+			&.loaded:not(.error) {
+				animation: loaded 1000ms ease-in-out;
+			}
+
+			&.error {
+				// fallback to placeholder image on error
+				content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=');
+			}
 		}
 	}
 }
