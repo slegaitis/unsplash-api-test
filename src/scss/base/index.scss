@@ -144,3 +144,10 @@ footer {
 		width: 200px;
 	}
 }
+
+.error-paragraph {
+	color: $error;
+	font-weight: 900;
+	padding: $l;
+	text-align: center;
+}

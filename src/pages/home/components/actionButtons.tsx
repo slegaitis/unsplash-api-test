@@ -1,16 +1,26 @@
 import React from 'react';
 import { ApiImage } from '../types';
-import { onFavouriteButtonClick } from '../controller';
+import { useFavouriteButton, useViewButton } from '../hooks';
+import { useHomeState } from '../context';
 
 interface OwnProps {
 	image: ApiImage;
+	onViewClick: () => void;
 }
 
-export default function ActionButtons({ image }: OwnProps) {
+export default function ActionButtons({ image, onViewClick }: OwnProps) {
+	const { favourites } = useHomeState();
+	const { performFavouriteClick } = useFavouriteButton();
+
 	return (
 		<div className="actions">
-			<button onClick={() => onFavouriteButtonClick(image)}>Favourite</button>
-			<button>View</button>
+			<button
+				onClick={() => performFavouriteClick(image)}
+				className={favourites.includes(image.id) ? 'favourite' : ''}
+			>
+				Favourite
+			</button>
+			<button onClick={onViewClick}>View</button>
 		</div>
 	);
 }

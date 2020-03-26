@@ -1,7 +1,11 @@
 import React, { Dispatch, useReducer, useContext, createContext } from 'react';
 import { ApiImage } from '../types';
+import { LOCALSTORAGE_FAVOURITES } from '../constants';
 
-export type StateActions = { type: 'INITIAL' } | { type: 'ADD_PHOTOS'; payload: ApiImage[] };
+export type StateActions =
+	| { type: 'INITIAL' }
+	| { type: 'ADD_PHOTOS'; payload: ApiImage[] }
+	| { type: 'FAVOURITES_UPDATED'; payload: string[] };
 export type HomeProps = {
 	photos: ApiImage[];
 	favourites: string[];
@@ -23,9 +27,14 @@ function HomeReducer(state: HomeProps, action: StateActions) {
 
 	switch (action.type) {
 		case 'INITIAL':
-			return { ...state };
+			const currentFavourites = localStorage.getItem(LOCALSTORAGE_FAVOURITES)
+				? JSON.parse(localStorage.getItem(LOCALSTORAGE_FAVOURITES)!!)
+				: [];
+			return { ...state, favourites: [...currentFavourites] };
 		case 'ADD_PHOTOS':
 			return { ...state, photos: [...state.photos, ...action.payload] };
+		case 'FAVOURITES_UPDATED':
+			return { ...state, favourites: [...action.payload] };
 		default: {
 			console.log('ACTION SENT: ', action);
 			throw new Error(`Unhandled action type: ${action}`);
@@ -35,7 +44,6 @@ function HomeReducer(state: HomeProps, action: StateActions) {
 
 export function HomeProvider({ children }: HomeProviderProps) {
 	const [state, dispatch] = useReducer(HomeReducer, initialHomeState);
-
 	return (
 		<HomeContext.Provider value={state}>
 			<HomeDispatchContext.Provider value={dispatch}>{children}</HomeDispatchContext.Provider>

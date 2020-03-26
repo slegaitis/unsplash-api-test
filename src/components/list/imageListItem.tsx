@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import LazyImage from '../lazyImage';
 import ActionButtons from '../../pages/home/components/actionButtons';
 import { ApiImage } from '../../pages/home/types';
+import ImageViewModal from '../../pages/home/components/imageViewModal';
 
 interface OwnProps {
 	image: ApiImage;
 }
 
 export default function ImageListItem({ image }: OwnProps) {
+	const [showPreview, setShowPreview] = useState(false);
+
 	return (
 		<li>
 			<LazyImage
@@ -24,8 +27,10 @@ export default function ImageListItem({ image }: OwnProps) {
 				<span className="br" />
 				<h6>{image.user.username}</h6>
 
-				<ActionButtons image={image} />
+				<ActionButtons image={image} onViewClick={() => setShowPreview(!showPreview)} />
 			</div>
+
+			{showPreview && <ImageViewModal image={image} />}
 		</li>
 	);
 }

@@ -1,13 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useHomeState } from '../context';
-import { useFetchPhotos } from '../controller';
+import { useFetchPhotos, useImageListInitialization } from '../hooks';
 import ImageListItem from '../../../components/list/imageListItem';
 import AppFooter from '../../../components/appFooter';
 import Loading from '../../../components/loading';
+import { useCustomEffect } from '../../../hooks';
+import ErrorPage from '../../error';
 
 export default function ImageList() {
 	const { photos } = useHomeState();
-	const { fetchPhotos, isLoading } = useFetchPhotos({ options: {} });
+	const { fetchPhotos, isLoading, error } = useFetchPhotos({ options: {} });
+	const { initializePage } = useImageListInitialization();
 	const [triggerElement, setTriggerElement] = useState<HTMLDivElement | null>(null);
 	const loader = useRef(fetchPhotos);
 	const observer = new IntersectionObserver(
@@ -21,11 +24,15 @@ export default function ImageList() {
 		{ threshold: 0.1 }
 	);
 
-	useEffect(() => {
+	useCustomEffect(() => {
+		initializePage();
+	}, []);
+
+	useCustomEffect(() => {
 		loader.current = fetchPhotos;
 	}, [fetchPhotos]);
 
-	useEffect(() => {
+	useCustomEffect(() => {
 		const currentElement = triggerElement;
 
 		if (currentElement) {
@@ -48,7 +55,7 @@ export default function ImageList() {
 						<ImageListItem key={`image-${index}`} image={photo} />
 					))}
 			</ul>
-
+			{error && <ErrorPage message={error} />}
 			{isLoading && <Loading />}
 
 			<div ref={setTriggerElement}>

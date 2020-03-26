@@ -81,6 +81,12 @@
 						background: $white;
 						color: $dark;
 					}
+
+					&.favourite {
+						background: $error;
+						border: 1px solid $error;
+						color: $white;
+					}
 				}
 			}
 		}
