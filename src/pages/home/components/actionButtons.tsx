@@ -1,6 +1,6 @@
 import React from 'react';
 import { ApiImage } from '../types';
-import { useFavouriteButton } from '../hooks';
+import { useButtonClick } from '../hooks';
 import { useHomeState } from '../context';
 
 interface OwnProps {
@@ -10,12 +10,12 @@ interface OwnProps {
 
 export default function ActionButtons({ image, onViewClick }: OwnProps) {
 	const { favourites } = useHomeState();
-	const { performFavouriteClick } = useFavouriteButton();
+	const { onFavouriteButtonClick } = useButtonClick();
 
 	return (
 		<div className="actions">
 			<button
-				onClick={() => performFavouriteClick(image)}
+				onClick={() => onFavouriteButtonClick(image)}
 				className={favourites.includes(image.id) ? 'favourite' : ''}
 			>
 				Favourite

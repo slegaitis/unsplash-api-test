@@ -5,11 +5,10 @@ import ImageListItem from '../../../components/list/imageListItem';
 import AppFooter from '../../../components/appFooter';
 import Loading from '../../../components/loading';
 import { useCustomEffect } from '../../../hooks';
-import ErrorPage from '../../error';
 
 export default function ImageList() {
 	const { photos } = useHomeState();
-	const { fetchPhotos, isLoading, error } = useFetchPhotos({ options: {} });
+	const { fetchPhotos, isLoading } = useFetchPhotos({ options: {} });
 	const { initializePage } = useImageListInitialization();
 	const [triggerElement, setTriggerElement] = useState<HTMLDivElement | null>(null);
 	const loader = useRef(fetchPhotos);
@@ -49,14 +48,15 @@ export default function ImageList() {
 	return (
 		<>
 			{isLoading && <Loading />}
-			{error && <ErrorPage message={error} />}
-			{/* Gal Masonry grid butu graziau cia (del skirtingu dydziu nuotrauku) bet sekiau dizaina kiek imanoma */}
-			<ul className="image-list">
-				{photos &&
-					photos.map((photo, index) => (
-						<ImageListItem key={`image-${index}`} image={photo} />
-					))}
-			</ul>
+
+			<div className="wrapper">
+				<ul className="image-list">
+					{photos &&
+						photos.map((photo, index) => (
+							<ImageListItem key={`image-${index}`} image={photo} />
+						))}
+				</ul>
+			</div>
 
 			<div ref={setTriggerElement}>
 				<AppFooter />

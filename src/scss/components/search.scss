@@ -1,0 +1,47 @@
+.searchBanner {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	height: 250px;
+	margin-bottom: $l;
+	justify-content: center;
+	padding: $xs;
+
+	@include respond-to('tablet') {
+		form {
+			width: 500px;
+		}
+	}
+
+	input {
+		@include font-size(24px);
+		background: none;
+		border: 0;
+		color: $dark;
+		font-family: $headerFont;
+		width: calc(100% - 45px);
+
+		&::-webkit-input-placeholder {
+			/* Chrome/Opera/Safari */
+			color: $dark;
+		}
+		&::-moz-placeholder {
+			/* Firefox 19+ */
+			color: $dark;
+		}
+		&:-ms-input-placeholder {
+			/* IE 10+ */
+			color: $dark;
+		}
+		&:-moz-placeholder {
+			/* Firefox 18- */
+			color: $dark;
+		}
+	}
+
+	button {
+		@include font-size(24px);
+		border: 0;
+		padding: $xxs;
+	}
+}

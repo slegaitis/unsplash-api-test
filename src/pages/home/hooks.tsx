@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { API } from '../../constants';
 import { useHomeDispatch } from './context';
 import { useApiFetch } from '../../api';
 import { ApiImage } from './types';
 import { LOCALSTORAGE_FAVOURITES } from './constants';
+import { toast } from 'react-toastify';
 
-export const useFavouriteButton = () => {
+export const useButtonClick = () => {
 	const dispatch = useHomeDispatch();
 
-	const performFavouriteClick = (image: ApiImage) => {
+	const onFavouriteButtonClick = (image: ApiImage) => {
 		let currentFavourites = localStorage.getItem(LOCALSTORAGE_FAVOURITES)
 			? JSON.parse(localStorage.getItem(LOCALSTORAGE_FAVOURITES)!!)
 			: [];
@@ -27,7 +28,7 @@ export const useFavouriteButton = () => {
 		dispatch({ type: 'FAVOURITES_UPDATED', payload: currentFavourites });
 	};
 
-	return { performFavouriteClick };
+	return { onFavouriteButtonClick };
 };
 
 export const useImageListInitialization = () => {
@@ -57,7 +58,7 @@ export const useFetchPhotos = ({ options }: FetchInterface) => {
 				},
 			});
 			if (json.length) {
-				setError('');
+				setError(null);
 				dispatch({ type: 'ADD_PHOTOS', payload: json });
 			} else {
 				setError('We are sorry, unable to load images at this time.');
@@ -66,6 +67,12 @@ export const useFetchPhotos = ({ options }: FetchInterface) => {
 			setError('We are sorry, unable to load images at this time.');
 		}
 	};
+
+	useEffect(() => {
+		if (error && error.length) {
+			toast.error(error);
+		}
+	}, [error]);
 
 	return { fetchPhotos, error, isLoading };
 };

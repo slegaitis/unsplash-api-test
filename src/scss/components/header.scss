@@ -1,6 +1,5 @@
 .app-header {
-	background: $secondary;
-	margin: 0 0 50px;
+	background: $dark;
 	padding: $xxs $s;
 	text-align: center;
 	text-transform: uppercase;
@@ -12,7 +11,7 @@
 	}
 
 	p {
-		color: darken($dark, 20%);
+		color: $white;
 		font-weight: 900;
 		@include font-size(14px);
 		margin: $xxs $zero;
