@@ -48,6 +48,8 @@ export default function ImageList() {
 
 	return (
 		<>
+			{isLoading && <Loading />}
+			{error && <ErrorPage message={error} />}
 			{/* Gal Masonry grid butu graziau cia (del skirtingu dydziu nuotrauku) bet sekiau dizaina kiek imanoma */}
 			<ul className="image-list">
 				{photos &&
@@ -55,8 +57,6 @@ export default function ImageList() {
 						<ImageListItem key={`image-${index}`} image={photo} />
 					))}
 			</ul>
-			{error && <ErrorPage message={error} />}
-			{isLoading && <Loading />}
 
 			<div ref={setTriggerElement}>
 				<AppFooter />

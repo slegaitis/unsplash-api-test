@@ -1,7 +1,74 @@
 .image-view-modal {
-	bottom: 0;
-	left: 0;
+	align-items: center;
+	background: rgba($dark, 0.5);
+	bottom: $zero;
+	display: flex;
+	left: $zero;
+	margin: auto;
 	position: fixed;
-	right: 0;
-	top: 0;
+	justify-content: center;
+	right: $zero;
+	top: $zero;
+	z-index: 2;
+
+	.modal-content {
+		background: $white;
+		margin: 50px auto;
+		max-height: 90%;
+		max-width: 1000px;
+		padding: $xxs;
+		position: relative;
+		overflow: auto;
+		width: 100%;
+
+		@include respond-to('tablet') {
+			padding: $s;
+		}
+
+		.modal-header {
+			display: flex;
+			margin-bottom: $l;
+			justify-content: space-between;
+
+			button,
+			a {
+				@include font-size(22px);
+				margin: 0 10px;
+				padding: $xxs;
+
+				&.close-button {
+					margin-right: 0;
+				}
+			}
+		}
+
+		.user {
+			align-items: center;
+			display: flex;
+
+			img {
+				border-radius: 50%;
+				max-width: $l;
+			}
+
+			h6 {
+				@include font-size(11px);
+				margin: 0 0 0 $xxs;
+				text-transform: uppercase;
+			}
+		}
+
+		.main {
+			margin: 0 auto;
+			max-width: 350px;
+		}
+
+		.modal-footer {
+			p {
+				@include font-size(14px);
+				font-weight: 500;
+				margin-top: $l;
+			}
+		}
+	}
 }

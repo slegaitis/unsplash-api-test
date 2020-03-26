@@ -1,6 +1,6 @@
 import React from 'react';
 import { ApiImage } from '../types';
-import { useFavouriteButton, useViewButton } from '../hooks';
+import { useFavouriteButton } from '../hooks';
 import { useHomeState } from '../context';
 
 interface OwnProps {

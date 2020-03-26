@@ -6,6 +6,7 @@ $font: 'Lato', sans-serif;
 $dark: #353a57;
 $primary: #72a1e5;
 $secondary: #6b73a3;
+$grey: #e7e7e7;
 $warn: #ecce8e;
 $error: #bc424c;
 $white: #ffffff;
@@ -42,6 +43,7 @@ $wrapper: 1200px;
 }
 
 @import '_normalize.scss';
+@import 'icofont.min.scss';
 @import './functions/functions.scss';
 @import './base';
 @import './components/header.scss';

@@ -30,7 +30,12 @@ export default function ImageListItem({ image }: OwnProps) {
 				<ActionButtons image={image} onViewClick={() => setShowPreview(!showPreview)} />
 			</div>
 
-			{showPreview && <ImageViewModal image={image} />}
+			{showPreview && (
+				<ImageViewModal
+					image={image}
+					onCloseButtonClick={() => setShowPreview(!showPreview)}
+				/>
+			)}
 		</li>
 	);
 }

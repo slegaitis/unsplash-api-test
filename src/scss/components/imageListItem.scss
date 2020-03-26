@@ -12,14 +12,14 @@
 		list-style: none;
 		margin: $zero;
 		max-width: 300px;
-		padding: $xxs;
+		padding: $xs;
 		position: relative;
 		overflow: hidden;
 		width: 100%;
 
 		@include respond-to('tablet') {
 			height: 300px;
-			max-width: calc(100% / 3);
+			max-width: calc(100% / 2);
 		}
 
 		@include respond-to('desktop') {
@@ -36,17 +36,17 @@
 			align-items: center;
 			background: rgba($dark, 0.6);
 			border-radius: 4px;
-			bottom: $xxs;
+			bottom: $xs;
 			display: flex;
 			flex-direction: column;
-			height: calc(100% - ($xxs * 2));
-			left: $xxs;
+			height: calc(100% - ($xs * 2));
+			left: $xs;
 			opacity: $zero;
 			padding: $zero $xs;
 			position: absolute;
 			justify-content: center;
-			right: $xxs;
-			top: $xxs;
+			right: $xs;
+			top: $xs;
 			@include transition(opacity 0.2s ease);
 
 			h4 {
@@ -75,7 +75,8 @@
 
 				button {
 					color: $white;
-					margin: 0 $xs;
+					margin: 0 $xxs;
+					padding: $xs;
 
 					&:hover {
 						background: $white;
@@ -92,6 +93,9 @@
 		}
 
 		img {
+			-webkit-box-shadow: 2px 2px 5px 0px rgba(53, 58, 87, 0.5);
+			-moz-box-shadow: 2px 2px 5px 0px rgba(53, 58, 87, 0.5);
+			box-shadow: 2px 2px 5px 0px rgba(53, 58, 87, 0.5);
 			background: $snow;
 			border-radius: 4px;
 			display: block;

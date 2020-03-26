@@ -5,12 +5,6 @@ import { useApiFetch } from '../../api';
 import { ApiImage } from './types';
 import { LOCALSTORAGE_FAVOURITES } from './constants';
 
-export const useViewButton = () => {
-	const performViewButtonClick = () => {};
-
-	return { performViewButtonClick };
-};
-
 export const useFavouriteButton = () => {
 	const dispatch = useHomeDispatch();
 
