@@ -1,3 +1,8 @@
+export enum ViewType {
+	'latest' = 0,
+	'search' = 1,
+}
+
 export interface Urls {
 	raw: string;
 	full: string;

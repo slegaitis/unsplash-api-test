@@ -1,13 +1,11 @@
 import React from 'react';
 import { HomeProvider } from './context';
-import ImageList from './components/imageList';
-import Search from '../../components/search';
+import HomeScreen from './homeScreen';
 
 export default function HomePage() {
 	return (
 		<HomeProvider>
-			<Search />
-			<ImageList />
+			<HomeScreen />
 		</HomeProvider>
 	);
 }

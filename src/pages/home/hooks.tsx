@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { API } from '../../constants';
-import { useHomeDispatch } from './context';
+import { useHomeDispatch, useHomeState } from './context';
 import { useApiFetch } from '../../api';
 import { ApiImage } from './types';
 import { LOCALSTORAGE_FAVOURITES } from './constants';
 import { toast } from 'react-toastify';
+import { useCustomEffect } from '../../hooks';
 
 export const useButtonClick = () => {
 	const dispatch = useHomeDispatch();
@@ -38,25 +39,63 @@ export const useImageListInitialization = () => {
 	return { initializePage };
 };
 
+interface LazyLoadInterface {
+	triggerElement: HTMLDivElement | null;
+	fetchRequest: Function;
+}
+
+export const useInfiniteScroll = ({ triggerElement, fetchRequest }: LazyLoadInterface) => {
+	const loader = useRef(fetchRequest);
+	const observer = new IntersectionObserver(
+		(entries) => {
+			const first = entries[0];
+
+			if (first.isIntersecting) {
+				loader.current();
+			}
+		},
+		{ threshold: 0.1 }
+	);
+
+	useEffect(() => {
+		const currentElement = triggerElement;
+
+		if (currentElement) {
+			observer.observe(currentElement);
+		}
+
+		return () => {
+			if (currentElement) {
+				observer.unobserve(currentElement);
+			}
+		};
+	}, [triggerElement]);
+
+	useCustomEffect(() => {
+		loader.current = fetchRequest;
+	}, [fetchRequest]);
+};
+
 interface FetchInterface {
 	options: any;
 }
 
 export const useFetchPhotos = ({ options }: FetchInterface) => {
 	const dispatch = useHomeDispatch();
-	const [page, setPage] = useState<number>(1);
+	const { query } = useHomeState();
+	const [page, setPage] = useState<number>(0);
 	const { apiFetch, isLoading } = useApiFetch();
 	const [error, setError] = useState<string | null>(null);
-	const fetchPhotos = async () => {
-		setPage(page + 1);
 
+	const fetchPhotos = async () => {
 		try {
 			const json = await apiFetch({
-				url: `${API}/photos?per_page=25&page=${page}`,
+				url: `${API}/photos?per_page=25&page=${page + 1}`,
 				options: {
 					...options,
 				},
 			});
+			setPage(page + 1);
 			if (json.length) {
 				setError(null);
 				dispatch({ type: 'ADD_PHOTOS', payload: json });
@@ -68,11 +107,43 @@ export const useFetchPhotos = ({ options }: FetchInterface) => {
 		}
 	};
 
+	const searchPhotos = async (searchQuery: string, isNewQuery?: boolean) => {
+		try {
+			const json = await apiFetch({
+				url: `${API}/search/photos?per_page=25&page=${
+					isNewQuery ? 1 : page + 1
+				}&query=${encodeURI(searchQuery ? searchQuery : query)}`,
+				options: {
+					...options,
+				},
+			});
+
+			setPage(page + 1);
+			if (json.results.length >= 0) {
+				setError(null);
+				dispatch({
+					type: 'ADD_SEARCH_PHOTOS',
+					payload: { images: json.results, isNewQuery: !!isNewQuery, query: searchQuery },
+				});
+			} else {
+				setError('We are sorry, unable to load images at this time.');
+			}
+		} catch (error) {
+			setError('We are sorry, unable to load images at this time.');
+		}
+	};
+
+	const reset = async () => {
+		dispatch({
+			type: 'RESET',
+		});
+	};
+
 	useEffect(() => {
 		if (error && error.length) {
 			toast.error(error);
 		}
 	}, [error]);
 
-	return { fetchPhotos, error, isLoading };
+	return { fetchPhotos, searchPhotos, reset, error, isLoading };
 };
