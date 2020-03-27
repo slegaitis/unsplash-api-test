@@ -15,7 +15,7 @@
 
 	input {
 		@include font-size(24px);
-		background: none;
+		background: $grey;
 		border: 0;
 		color: $dark;
 		font-family: $headerFont;
@@ -43,6 +43,7 @@
 		color: darken($grey, 50%);
 		font-weight: 900;
 		@include font-size(14px);
+		margin-top: 30px;
 		text-transform: uppercase;
 
 		&:hover {
