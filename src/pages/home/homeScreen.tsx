@@ -7,6 +7,7 @@ import Search from '../../components/search';
 
 export default function HomeScreen() {
 	const { currentView } = useHomeState();
+
 	return (
 		<>
 			<Search />

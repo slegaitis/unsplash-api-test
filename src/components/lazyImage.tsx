@@ -13,7 +13,6 @@ enum ImageStates {
 export default function LazyImage({ src, alt }: OwnProps) {
 	const placeHolder =
 		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=';
-
 	const [imageSrc, setImageSrc] = useState(placeHolder);
 	const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
 
