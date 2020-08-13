@@ -14,9 +14,7 @@ export default function ImageList({ photos, setTriggerElement }: OwnProps) {
 			<div className="wrapper">
 				<ul className="image-list">
 					{photos &&
-						photos.map((photo, index) => (
-							<ImageListItem key={`image-${index}`} image={photo} />
-						))}
+						photos.map((photo) => <ImageListItem key={photo.id} image={photo} />)}
 				</ul>
 			</div>
 
