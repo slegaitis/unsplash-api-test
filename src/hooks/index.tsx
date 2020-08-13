@@ -18,11 +18,11 @@ export function useCustomEffect(effect: EffectCallback, deps: DependencyList) {
 export const useForm = (callback: () => void, initialState: any) => {
 	const [values, setValues] = useState(initialState);
 
-	const onChange = (e: any) => {
+	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValues({ ...values, [e.target.name]: e.target.value });
 	};
 
-	const onSubmit = (e: any) => {
+	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		callback();
 	};

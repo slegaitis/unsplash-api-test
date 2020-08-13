@@ -12,7 +12,7 @@ export default function LazyImage({ src, alt }: OwnProps) {
 	const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 
-	const onImageLoad = (event: any) => {
+	const onImageLoad = (event: React.SyntheticEvent<HTMLImageElement, Event>) => {
 		setIsLoaded(true);
 	};
 
