@@ -69,6 +69,7 @@ export const useInfiniteScroll = ({ triggerElement, fetchRequest }: LazyLoadInte
 				observer.unobserve(currentElement);
 			}
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [triggerElement]);
 
 	useCustomEffect(() => {

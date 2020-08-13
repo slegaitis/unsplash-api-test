@@ -1,25 +1,7 @@
 import React, { Dispatch, useReducer, useContext, createContext } from 'react';
-import { ApiImage, ViewType } from '../types';
+import { ViewType } from '../types';
 import { LOCALSTORAGE_FAVOURITES } from '../constants';
-
-export type StateActions =
-	| { type: 'INITIAL' }
-	| { type: 'RESET' }
-	| { type: 'ADD_PHOTOS'; payload: ApiImage[] }
-	| {
-			type: 'ADD_SEARCH_PHOTOS';
-			payload: { images: ApiImage[]; query: string; isNewQuery: boolean };
-	  }
-	| { type: 'FAVOURITES_UPDATED'; payload: string[] };
-
-export type HomeProps = {
-	currentView: ViewType;
-	query: string;
-	photos: ApiImage[];
-	favourites: string[];
-};
-
-type HomeProviderProps = { children: React.ReactNode };
+import { HomeProps, StateActions, HomeProviderProps } from './contextTypes';
 
 const HomeContext = createContext<HomeProps | undefined>(undefined);
 const HomeDispatchContext = createContext<Dispatch<StateActions> | undefined>(undefined);

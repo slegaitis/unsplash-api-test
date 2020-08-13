@@ -5,23 +5,15 @@ interface OwnProps {
 	alt: string;
 }
 
-enum ImageStates {
-	'loaded',
-	'error',
-}
-
 export default function LazyImage({ src, alt }: OwnProps) {
 	const placeHolder =
 		'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkqAcAAIUAgUW0RjgAAAAASUVORK5CYII=';
 	const [imageSrc, setImageSrc] = useState(placeHolder);
 	const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null);
+	const [isLoaded, setIsLoaded] = useState(false);
 
 	const onImageLoad = (event: any) => {
-		event.target.classList.add(ImageStates.loaded);
-	};
-
-	const onImageError = (event: any) => {
-		event.target.classList.add(ImageStates.error);
+		setIsLoaded(true);
 	};
 
 	useEffect(() => {
@@ -66,7 +58,7 @@ export default function LazyImage({ src, alt }: OwnProps) {
 			src={imageSrc}
 			alt={alt}
 			onLoad={onImageLoad}
-			onError={onImageError}
+			className={isLoaded ? 'loaded' : ''}
 		/>
 	);
 }
